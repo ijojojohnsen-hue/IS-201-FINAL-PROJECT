@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Côte D'Ivoire</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="intro">
+        <h1>
+            A Look Into Côte D'Ivoire
+        </h1>
+        <p>Far away, some 5,000+ miles from Provo, lies the vibrant country of Côte d'Ivoire. This West African nation is known for its rich traditions, lively music and dance, and wide cultural diversity. With more than 60 ethnic groups living between the tropical rainforest in the south and the Guinean savanna in the north, Côte d'Ivoire and its economic capital, Abidjan, reflect a dynamic blend of history, language, and everyday life.</p>
+        <nav class="page-links" aria-label="Page navigation">
+            <a href="#culture">Explore Ivorian Culture</a>
+            <a href="#media">A Look Into Ivorian Life</a>
+            <a href="startbootstrap-grayscale-gh-pages/index.html">Visit the Professional Page</a>
+            <a href="resume.html">View My Resume</a>
+            <a href="game.html">Learn About Ethnic History in an Interactive Game!</a>
+        </nav>
+    </div>
+    <div id="culture">
+        <h2>Exploring Ivorian Culture</h2>
+        <p>Côte d'Ivoire is known for its vibrant music, flavorful food, deep sense of community, and rich mix of traditions. From colorful markets in Abidjan to local dances, languages, and celebrations across the country, Ivorian culture reflects both diversity and strong national pride.</p>
+        <ol>
+            <li>Popular Foods
+                <ul>
+                    <li>Attiéké</li>
+                    <li>Alloco</li>
+                    <li>Foutou Banane</li>
+                </ul>
+            </li>
+            <li>Music and Dance Traditions</li>
+            <li>Languages and Ethnic Diversity</li>
+        </ol>
+    </div>
+    <div id="media">
+        <h2>A Look Into Ivorian Life</h2>
+
+        <section class="media-item">
+            <h3>A Plate of Attieke and Fish, Often Called Garba</h3>
+            <img src="assets/images/garba.jpg" alt="An image of Côte D'Ivoire food">
+        </section>
+
+        <section class="media-item">
+            <h3>Want to Learn More?</h3>
+            <iframe
+                src="https://www.youtube.com/embed/23ubg7QdebI?si=tmG_KdYVaBy4KKWv"
+                title="Cote d'Ivoire video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+            ></iframe>
+        </section>
+
+        <section class="media-item">
+            <h3>A Closer Look Through Data</h3>
+            <div class="tableauPlaceholder" id="viz1776729305467" style="position: relative;">
+                <noscript>
+                    <a href="#">
+                        <img alt="Chart 2" src="assets/images/tableau-fallback.png" style="border: none;">
+                    </a>
+                </noscript>
+                <object class="tableauViz" style="display: none;">
+                    <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F">
+                    <param name="embed_code_version" value="3">
+                    <param name="site_root" value="">
+                    <param name="name" value="CotedIvoire_16837889607920&#47;Chart2">
+                    <param name="tabs" value="no">
+                    <param name="toolbar" value="yes">
+                    <param name="static_image" value="assets/images/tableau-static.png">
+                    <param name="animate_transition" value="yes">
+                    <param name="display_static_image" value="yes">
+                    <param name="display_spinner" value="yes">
+                    <param name="display_overlay" value="yes">
+                    <param name="display_count" value="yes">
+                    <param name="language" value="en-US">
+                </object>
+            </div>
+        </section>
+        <script type="text/javascript">
+            var divElement = document.getElementById("viz1776729305467");
+            var vizElement = divElement.getElementsByTagName("object")[0];
+            if (divElement.offsetWidth > 800) {
+                vizElement.style.width = "100%";
+                vizElement.style.height = (divElement.offsetWidth * 0.75) + "px";
+            } else if (divElement.offsetWidth > 500) {
+                vizElement.style.width = "100%";
+                vizElement.style.height = (divElement.offsetWidth * 0.75) + "px";
+            } else {
+                vizElement.style.width = "100%";
+                vizElement.style.height = "977px";
+            }
+            var scriptElement = document.createElement("script");
+            scriptElement.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
+            vizElement.parentNode.insertBefore(scriptElement, vizElement);
+        </script>
+        <p class="back-link"><a href="#intro">Back to Top</a></p>
+    </div>
+</body>
+</html>
