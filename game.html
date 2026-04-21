@@ -1,0 +1,1688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Baoulé Trail</title>
+  <style>
+    :root {
+      --bg1: #f5e4b3;
+      --bg2: #c88943;
+      --panel: rgba(255, 248, 235, 0.97);
+      --dark: #2d1b0f;
+      --accent: #7f2f1b;
+      --accent2: #2c5f52;
+      --gold: #d9a441;
+      --line: #8a5a2b;
+      --danger: #8c2b2b;
+      --good: #2f6d3d;
+      --soft: #fff7e8;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Georgia, serif;
+      background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+      color: var(--dark);
+    }
+
+    .wrapper {
+      max-width: 1100px;
+      margin: 24px auto;
+      padding: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 4px solid #6e4523;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    }
+
+    .hero {
+      padding: 22px;
+      background:
+        linear-gradient(rgba(255,245,225,0.9), rgba(255,245,225,0.92)),
+        url("assets/images/baoule-trail-hero.jpg");
+      background-size: cover;
+      background-position: center;
+      border-bottom: 4px solid #6e4523;
+    }
+
+    .hero h1 {
+      margin: 0;
+      text-align: center;
+      color: var(--accent);
+      font-size: 2.3rem;
+    }
+
+    .hero p {
+      text-align: center;
+      max-width: 850px;
+      margin: 10px auto 0 auto;
+      line-height: 1.6;
+    }
+
+    .page-nav {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .page-nav a {
+      display: inline-block;
+      background: rgba(255, 247, 232, 0.95);
+      color: var(--accent);
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .page-nav a:hover {
+      background: #fffdf8;
+    }
+
+    .inner {
+      display: grid;
+      grid-template-columns: 1.65fr 1fr;
+      gap: 18px;
+      padding: 18px;
+    }
+
+    .box {
+      background: var(--soft);
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .box h2, .box h3 {
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    .start-area input,
+    .start-area select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      margin-top: 6px;
+      margin-bottom: 14px;
+      font-family: Georgia, serif;
+      font-size: 1rem;
+    }
+
+    .button-row,
+    .actions,
+    .choice-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    button {
+      background: #8b4513;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: Georgia, serif;
+      transition: 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      background: #a5541f;
+    }
+
+    button:disabled {
+      background: #8e8e8e;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: #fff1cf;
+      border: 2px solid #a27032;
+      border-radius: 10px;
+      padding: 10px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .story,
+    .eventText {
+      line-height: 1.6;
+      min-height: 120px;
+    }
+
+    .map-box {
+      overflow-x: auto;
+    }
+
+    .map-strip {
+      position: relative;
+      min-width: 760px;
+      padding: 28px 18px 14px 18px;
+    }
+
+    .map-line {
+      position: absolute;
+      top: 47px;
+      left: 40px;
+      right: 40px;
+      height: 6px;
+      background: #b78648;
+      border-radius: 999px;
+    }
+
+    .stops {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 2;
+    }
+
+    .stop {
+      width: 110px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .dot {
+      width: 20px;
+      height: 20px;
+      background: #ead0a0;
+      border: 3px solid #7b4a1f;
+      border-radius: 50%;
+      margin: 0 auto 8px auto;
+    }
+
+    .stop.active .dot {
+      background: #7b2f1b;
+    }
+
+    .stop.done .dot {
+      background: #2f6d3d;
+    }
+
+    .stop small {
+      display: block;
+      color: #5b4126;
+      margin-top: 3px;
+    }
+
+    .event-image-wrap {
+      margin-top: 12px;
+      display: none;
+    }
+
+    .event-image-wrap img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid var(--line);
+    }
+
+    .caption {
+      font-size: 0.88rem;
+      color: #5e4428;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .log {
+      background: #fdf1d5;
+      border: 2px solid #a06f33;
+      border-radius: 10px;
+      padding: 12px;
+      max-height: 280px;
+      overflow-y: auto;
+    }
+
+    .log-entry {
+      border-bottom: 1px solid #d8bb92;
+      padding: 7px 0;
+      font-size: 0.95rem;
+    }
+
+    .hidden { display: none; }
+
+    .ending {
+      background: #fff2d5;
+      border: 2px dashed #a06f33;
+      border-radius: 10px;
+      padding: 14px;
+      line-height: 1.7;
+      font-size: 1.04rem;
+    }
+
+    .good { color: var(--good); font-weight: bold; }
+    .bad { color: var(--danger); font-weight: bold; }
+
+    ul {
+      padding-left: 20px;
+      line-height: 1.6;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f0d7aa;
+      border: 1px solid #b9843d;
+      margin: 2px 4px 2px 0;
+      font-size: 0.88rem;
+    }
+
+
+    .location-banner {
+      margin-top: 12px;
+      background: #fff1cf;
+      border: 2px solid #a27032;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-weight: bold;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .status-card {
+      background: #fff1cf;
+      border: 2px solid #a27032;
+      border-radius: 10px;
+      padding: 10px;
+      line-height: 1.5;
+    }
+
+    .status-card strong {
+      color: var(--accent);
+    }
+
+    .sick-stat {
+      background: #ffd7d7 !important;
+      border-color: #b33636 !important;
+      color: #7c1515;
+    }
+
+    .shop-note {
+      font-size: 0.92rem;
+      color: #5b4126;
+      margin-top: 6px;
+    }
+
+    @media (max-width: 900px) {
+      .inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+    }
+  
+    .status-panel p { margin: 6px 0; }
+    .stat.sick {
+      background: #ffd9d9;
+      border-color: #a11f1f;
+      color: #7a1010;
+    }
+    #actionsBox .ending {
+      margin-top: 0;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="panel">
+      <div class="hero">
+        <h1>The Baoulé Trail</h1>
+        <p>
+          Lead a migrating community westward through forest, river, and settlement routes in Côte d’Ivoire.
+          This is a historical-fiction strategy game inspired by the Baoulé migration tradition associated with Queen Abla Pokou.
+        </p>
+        <div class="page-nav" aria-label="Site navigation">
+          <a href="startbootstrap-grayscale-gh-pages/index.html">Professional Page</a>
+          <a href="resume.html">Resume</a>
+          <a href="finalProject.html">Scratch Page</a>
+          <a href="#startBox">Start the Game</a>
+        </div>
+      </div>
+
+      <div class="inner">
+        <div>
+          <div class="box start-area" id="startBox">
+            <h2>Begin the Journey</h2>
+
+            <label for="groupName"><strong>Name your caravan</strong></label>
+            <input id="groupName" type="text" placeholder="Example: The Pokou Caravan">
+
+            <label for="leaderName"><strong>Name your leader</strong></label>
+            <input id="leaderName" type="text" placeholder="Example: Ahoua">
+
+            <label for="difficulty"><strong>Choose difficulty</strong></label>
+            <select id="difficulty">
+              <option value="story">Story Mode</option>
+              <option value="normal" selected>Journey Mode</option>
+              <option value="hard">Exile Mode</option>
+            </select>
+
+            <div class="button-row">
+              <button onclick="startGame()">Start Game</button>
+              <button onclick="showRules()">How to Play</button>
+            </div>
+          </div>
+
+                    <div class="box hidden" id="gameBox">
+            <h2 id="journeyTitle">Journey</h2>
+
+            <div class="box map-box">
+              <h3>Route Map</h3>
+              <div class="map-strip">
+                <div class="map-line"></div>
+                <div class="stops" id="stopsContainer"></div>
+              </div>
+            </div>
+
+            <div class="stats">
+              <div class="stat">Day<br><span id="day">1</span></div>
+              <div class="stat">Distance<br><span id="distance">0</span> / 1000</div>
+              <div class="stat">Location<br><span id="location">On the Trail</span></div>
+              <div class="stat">Food<br><span id="food">0</span></div>
+              <div class="stat">Water<br><span id="water">0</span></div>
+              <div class="stat">Medicine<br><span id="medicine">0</span></div>
+              <div class="stat">Cloth<br><span id="cloth">0</span></div>
+              <div class="stat" id="healthStat">Health<br><span id="health">0</span></div>
+              <div class="stat">Morale<br><span id="morale">0</span></div>
+              <div class="stat">Cowries<br><span id="cowries">0</span></div>
+              <div class="stat">Families<br><span id="families">0</span></div>
+              <div class="stat">Elders<br><span id="elders">0</span></div>
+              <div class="stat">Warriors<br><span id="warriors">0</span></div>
+            </div>
+
+            <div class="box status-panel" id="statusPanel">
+              <h3>Caravan Status</h3>
+              <p><strong>Disease:</strong> <span id="diseaseName">None</span></p>
+              <p><strong>Settlement Status:</strong> <span id="settlementState">On the Trail</span></p>
+            </div>
+
+            <div class="box" id="actionsBox">
+              <h3>Actions</h3>
+              <div class="actions">
+                <button id="travelBtn" onclick="takeAction('travel')">Travel Carefully</button>
+                <button id="pushBtn" onclick="takeAction('push')">Push Forward</button>
+                <button id="campBtn" onclick="takeAction('camp')">Camp in Settlement</button>
+                <button id="forageBtn" onclick="takeAction('forage')">Forage / Gather</button>
+                <button id="tradeBtn" onclick="takeAction('trade')">Trade</button>
+                <button id="scoutBtn" onclick="takeAction('scout')">Scout Ahead</button>
+                <button id="medicineBtn" onclick="takeAction('medicine')">Use Medicine</button>
+              </div>
+            </div>
+
+            <div class="box">
+              <h3>Story</h3>
+              <div class="story" id="storyBox"></div>
+            </div>
+
+            <div class="box">
+              <h3>Current Event</h3>
+              <div class="eventText" id="eventText"></div>
+              <div class="choice-row" id="eventChoices"></div>
+              <div class="event-image-wrap" id="eventImageWrap">
+                <img id="eventImage" src="" alt="">
+                <div class="caption" id="eventCaption"></div>
+              </div>
+            </div>
+
+            <div class="box">
+              <h3>Journey Log</h3>
+              <div class="log" id="log"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="box">
+            <h3>Game Rules</h3>
+            <ul>
+              <li>You can only <strong>camp in settlements</strong>.</li>
+              <li>You can only <strong>trade in settlements</strong> unless a special trade event appears.</li>
+              <li>Watch for rivers, elephant herds, illness, spirit trouble, and encounters with other communities.</li>
+              <li>Cloth helps in trade, ceremony, and diplomacy.</li>
+              <li>If health or morale reaches 0, the journey ends.</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h3>Settlements on the Route</h3>
+            <span class="tag">Abengourou</span>
+            <span class="tag">Dimbokro</span>
+            <span class="tag">Yamoussoukro</span>
+            <span class="tag">Bouaké</span>
+            <p style="margin-top:10px;">
+              River obstacles appear around the Comoé and Bandama portions of the route.
+            </p>
+          </div>
+
+          <div class="box">
+            <h3>Strategy Hints</h3>
+            <ul>
+              <li>Do not push forward every turn.</li>
+              <li>Save medicine for bad luck.</li>
+              <li>Use cloth wisely during ceremony or peace events.</li>
+              <li>Scout before dangerous territory.</li>
+              <li>When you reach a settlement, recover there.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  
+  <script>
+    const routeStops = [
+      { name: "Comoé Frontier", type: "river", dist: 0, subtitle: "Eastern entry" },
+      { name: "Abengourou", type: "settlement", dist: 170, subtitle: "Settlement" },
+      { name: "Dimbokro", type: "settlement", dist: 390, subtitle: "Settlement" },
+      { name: "Yamoussoukro", type: "settlement", dist: 610, subtitle: "Settlement" },
+      { name: "Bandama Ford", type: "river", dist: 770, subtitle: "River" },
+      { name: "Bouaké", type: "settlement", dist: 1000, subtitle: "Final settlement" }
+    ];
+
+    const settlementData = {
+      "Abengourou": {
+        intro: "A kola market hums with trade. Hunters speak of forest trails and hidden streams.",
+        prices: { food: 2, water: 1, medicine: 4, cloth: 3 }
+      },
+      "Dimbokro": {
+        intro: "River traders crowd the roads here. Water is easier to buy, but medicine is scarce.",
+        prices: { food: 3, water: 1, medicine: 5, cloth: 2 }
+      },
+      "Yamoussoukro": {
+        intro: "Drums and carved stools fill the square. Cloth is prized and elders are treated with honor.",
+        prices: { food: 2, water: 2, medicine: 4, cloth: 2 }
+      },
+      "Bouaké": {
+        intro: "Artisans, traders, and refugees crowd the final settlement. Nearly anything can be bought for a price.",
+        prices: { food: 3, water: 2, medicine: 3, cloth: 2 }
+      }
+    };
+
+    const diseasePool = [
+      { name: "River Fever", damage: 1 },
+      { name: "Forest Rot", damage: 2 },
+      { name: "Dust Cough", damage: 1 },
+      { name: "Night Chills", damage: 1 }
+    ];
+
+    const IMAGES = {
+      trade: {
+        src: "assets/images/baoule-trail-hero.jpg",
+        alt: "Pagne Baoulé cloth",
+        caption: "Pagne Baoulé cloth appears during trade and craft-related encounters."
+      },
+      ceremony: {
+        src: "assets/images/baoule-dance.jpg",
+        alt: "Baoulé dance and ceremony",
+        caption: "Ceremony and dance imagery used for ritual and morale events."
+      },
+      chiefs: {
+        src: "assets/images/baoule-chiefs.jpg",
+        alt: "Traditional Baoulé chiefs in pagne",
+        caption: "Traditional dress appears during diplomacy and peace encounters."
+      },
+      elephant: {
+        src: "assets/images/forest-elephant.jpg",
+        alt: "African bush elephant",
+        caption: "Elephant encounters can block the path and force hard choices."
+      },
+      victory: {
+        src: "https://commons.wikimedia.org/wiki/Special:FilePath/Female%20Face%20Mask%20(Mblo),%20early-mid%201900s,%20Guinea%20Coast,%20Ivory%20Coast,%20Baule%20people,%20wood%20-%20Cleveland%20Museum%20of%20Art%20-%20DSC08718.JPG",
+        alt: "Baoulé art from an online Wikimedia Commons image",
+        caption: "Winning image sourced online from Wikimedia Commons."
+      }
+    };
+
+    let game = {};
+    let activeEvent = null;
+    let allowFieldTrade = false;
+
+    function freshGame() {
+      return {
+        groupName: "The Caravan",
+        leaderName: "The Leader",
+        difficulty: "normal",
+        day: 1,
+        distance: 0,
+        food: 12,
+        water: 8,
+        medicine: 4,
+        cloth: 2,
+        health: 10,
+        morale: 10,
+        cowries: 12,
+        families: 14,
+        elders: 5,
+        warriors: 8,
+        over: false,
+        inSettlement: false,
+        currentSettlement: null,
+        scouted: false,
+        crossedComoe: false,
+        crossedBandama: false,
+        visitedSettlements: [],
+        stopIndex: 0,
+        consecutiveForage: 0,
+        forageRecovery: 0,
+        lastAction: null,
+        deathCause: "",
+        sleptInSettlement: false,
+        disease: null,
+        diseaseTurns: 0,
+        lastEventDay: 0,
+        score: 0,
+        scoreLog: [],
+        eventsSeen: 0,
+        goodChoices: 0,
+        badChoices: 0,
+        healthLost: 0
+      };
+    }
+
+    function addScore(points, reason) {
+      game.score += points;
+      game.scoreLog.push({ points, reason, day: game.day });
+    }
+
+    function startGame() {
+      game = freshGame();
+      const groupName = document.getElementById("groupName").value.trim();
+      const leaderName = document.getElementById("leaderName").value.trim();
+      const difficulty = document.getElementById("difficulty").value;
+      if (groupName) game.groupName = groupName;
+      if (leaderName) game.leaderName = leaderName;
+      game.difficulty = difficulty;
+
+      if (difficulty === "story") {
+        game.food = 15;
+        game.water = 11;
+        game.medicine = 5;
+        game.cloth = 3;
+        game.cowries = 14;
+      } else if (difficulty === "hard") {
+        game.food = 10;
+        game.water = 7;
+        game.medicine = 3;
+        game.cloth = 1;
+        game.cowries = 8;
+        game.health = 9;
+        game.morale = 9;
+      }
+
+      document.getElementById("startBox").classList.add("hidden");
+      document.getElementById("gameBox").classList.remove("hidden");
+      document.getElementById("journeyTitle").textContent = game.groupName + " — led by " + game.leaderName;
+      resetActionsBox();
+      buildMap();
+      setStory(game.leaderName + ", conflict has driven your people westward. Rivers, forests, illness, fear, and hard choices stand between your caravan and a safe settlement.");
+      setEvent("Dawn breaks near the Comoé frontier. Your people wait for your command.");
+      addLog("The journey begins.");
+      updateLocationState();
+      updateUI();
+    }
+
+    function showRules() {
+      alert(
+        "Reach Bouaké with your people still united.\n\n" +
+        "Travel Carefully = steady progress and lower risk.\n" +
+        "Push Forward = more distance, much more risk.\n" +
+        "Camp = only in settlements, and only once before leaving.\n" +
+        "Trade = only in settlements unless a special encounter allows it.\n" +
+        "Scout Ahead = lowers the chance of bad outcomes.\n" +
+        "Diseases can begin before health reaches zero and will keep draining health until cured."
+      );
+    }
+
+    function buildMap() {
+      const container = document.getElementById("stopsContainer");
+      container.innerHTML = "";
+      routeStops.forEach((stop, i) => {
+        const div = document.createElement("div");
+        div.className = "stop";
+        div.id = "stop-" + i;
+        div.innerHTML = '<div class="dot"></div><strong>' + stop.name + '</strong><small>' + stop.subtitle + '</small>';
+        container.appendChild(div);
+      });
+      updateMap();
+    }
+
+    function updateMap() {
+      routeStops.forEach((stop, i) => {
+        const el = document.getElementById("stop-" + i);
+        if (!el) return;
+        el.classList.remove("active", "done");
+        if (game.distance >= stop.dist) el.classList.add("done");
+      });
+      let nextIndex = routeStops.findIndex(stop => game.distance < stop.dist);
+      if (nextIndex === -1) nextIndex = routeStops.length - 1;
+      const activeIndex = game.inSettlement ? game.stopIndex : nextIndex;
+      const active = document.getElementById("stop-" + activeIndex);
+      if (active) active.classList.add("active");
+    }
+
+    function setStory(text) {
+      document.getElementById("storyBox").textContent = text;
+    }
+
+    function setEvent(text) {
+      document.getElementById("eventText").innerHTML = text;
+    }
+
+    function clearChoices() {
+      document.getElementById("eventChoices").innerHTML = "";
+    }
+
+    function addChoice(label, fn) {
+      const btn = document.createElement("button");
+      btn.textContent = label;
+      btn.onclick = fn;
+      document.getElementById("eventChoices").appendChild(btn);
+    }
+
+    function showEventImage(key) {
+      const wrap = document.getElementById("eventImageWrap");
+      const img = document.getElementById("eventImage");
+      const caption = document.getElementById("eventCaption");
+      const info = IMAGES[key];
+      if (!info) {
+        wrap.style.display = "none";
+        img.src = "";
+        img.alt = "";
+        caption.textContent = "";
+        return;
+      }
+      img.src = info.src;
+      img.alt = info.alt;
+      caption.textContent = info.caption;
+      wrap.style.display = "block";
+    }
+
+    function addLog(text) {
+      const log = document.getElementById("log");
+      const entry = document.createElement("div");
+      entry.className = "log-entry";
+      entry.textContent = "Day " + game.day + ": " + text;
+      log.prepend(entry);
+    }
+
+    function rand(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function chance(n) {
+      return Math.random() < n;
+    }
+
+    function clampStats() {
+      const prevHealth = game.health;
+      game.food = Math.max(0, game.food);
+      game.water = Math.max(0, game.water);
+      game.medicine = Math.max(0, game.medicine);
+      game.cloth = Math.max(0, game.cloth);
+      game.cowries = Math.max(0, game.cowries);
+      game.health = Math.max(0, Math.min(10, game.health));
+      game.morale = Math.max(0, Math.min(10, game.morale));
+      game.families = Math.max(0, game.families);
+      game.elders = Math.max(0, game.elders);
+      game.warriors = Math.max(0, game.warriors);
+      game.distance = Math.max(0, Math.min(1000, game.distance));
+      if (prevHealth > game.health) {
+        game.healthLost += (prevHealth - game.health);
+      }
+    }
+
+    function updateLocationState() {
+      while (game.stopIndex < routeStops.length - 1 && game.distance >= routeStops[game.stopIndex + 1].dist) {
+        game.stopIndex += 1;
+      }
+      const currentStop = routeStops[game.stopIndex];
+      game.inSettlement = !!(currentStop && currentStop.type === "settlement" && game.distance === currentStop.dist);
+      game.currentSettlement = game.inSettlement ? currentStop.name : null;
+      if (!game.inSettlement) {
+        document.getElementById("settlementState").textContent = "On the Trail";
+      } else {
+        document.getElementById("settlementState").textContent = currentStop.name;
+      }
+    }
+
+    function updateUI() {
+      document.getElementById("day").textContent = game.day;
+      document.getElementById("distance").textContent = game.distance;
+      document.getElementById("food").textContent = game.food;
+      document.getElementById("water").textContent = game.water;
+      document.getElementById("medicine").textContent = game.medicine;
+      document.getElementById("cloth").textContent = game.cloth;
+      document.getElementById("health").textContent = game.health;
+      document.getElementById("morale").textContent = game.morale;
+      document.getElementById("cowries").textContent = game.cowries;
+      document.getElementById("families").textContent = game.families;
+      document.getElementById("elders").textContent = game.elders;
+      document.getElementById("warriors").textContent = game.warriors;
+      document.getElementById("location").textContent = game.inSettlement ? game.currentSettlement : "On the Trail";
+      document.getElementById("diseaseName").textContent = game.disease ? (game.disease.name + " (" + game.diseaseTurns + " day)") : "None";
+      const healthStat = document.getElementById("healthStat");
+      if (game.disease) healthStat.classList.add("sick");
+      else healthStat.classList.remove("sick");
+      updateMap();
+      updateActionAvailability();
+    }
+
+    function updateActionAvailability() {
+      const campBtn = document.getElementById("campBtn");
+      const tradeBtn = document.getElementById("tradeBtn");
+      const medicineBtn = document.getElementById("medicineBtn");
+      if (!campBtn || !tradeBtn || !medicineBtn) return;
+      campBtn.disabled = game.over || !game.inSettlement || activeEvent !== null || game.sleptInSettlement;
+      tradeBtn.disabled = game.over || (!game.inSettlement && !allowFieldTrade) || activeEvent !== null;
+      medicineBtn.disabled = game.over || activeEvent !== null || game.medicine <= 0;
+      document.querySelectorAll(".actions button").forEach(btn => {
+        if (btn.id !== "campBtn" && btn.id !== "tradeBtn" && btn.id !== "medicineBtn") {
+          btn.disabled = game.over || activeEvent !== null;
+        }
+      });
+    }
+
+    function losePeople(f, e, w, reason) {
+      game.families -= f;
+      game.elders -= e;
+      game.warriors -= w;
+      const total = f + e + w;
+      if (total > 0) {
+        game.morale -= Math.min(3, total);
+        addLog(reason + " (-" + f + " families, -" + e + " elders, -" + w + " warriors)");
+        addScore(-8 * total, reason);
+      }
+    }
+
+    function markDeath(cause, endingType) {
+      if (game.over) return;
+      game.deathCause = cause;
+      endGame(endingType);
+    }
+
+    function emergencyNeeds(action) {
+      if (game.food === 0 && game.water === 0) {
+        const safeActions = ["forage", "trade"];
+        if (!safeActions.includes(action)) {
+          setEvent("The caravan has no food and no water left. This action does not restore either one immediately.");
+          addLog("The people collapse after acting with no food and no water.");
+          markDeath("With both food and water gone, the caravan cannot survive another wrong move.", "starvedOut");
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function useSupplies(foodAmt, waterAmt) {
+      game.food -= foodAmt;
+      game.water -= waterAmt;
+      if (game.food <= 0) {
+        game.health -= 2;
+        game.morale -= 1;
+        addLog("Hunger weakens the caravan badly.");
+      }
+      if (game.water <= 0) {
+        game.health -= 3;
+        game.morale -= 2;
+        addLog("Thirst drains the caravan.");
+      }
+      if (game.food <= 0 && game.water <= 0) {
+        game.health -= 2;
+        game.morale -= 2;
+        addLog("With neither food nor water, the caravan begins to break apart.");
+      }
+    }
+
+    function contractDisease(source, forced = null) {
+      if (game.disease && chance(0.4)) {
+        game.diseaseTurns += 1;
+        setEvent("The sickness worsens: " + game.disease.name + " continues to spread.");
+        addLog(source + " worsens the caravan's sickness.");
+        return;
+      }
+      const picked = forced || diseasePool[rand(0, diseasePool.length - 1)];
+      game.disease = { name: picked.name, damage: picked.damage };
+      game.diseaseTurns = 1;
+      game.morale -= 1;
+      setEvent("Disease takes hold: <strong>" + picked.name + "</strong> now afflicts the caravan.");
+      addLog(source + " gives the caravan " + picked.name + ".");
+      addScore(-12, "disease contracted");
+    }
+
+    function applyDiseaseTick() {
+      if (!game.disease || game.over) return;
+      game.health -= game.disease.damage;
+      game.morale -= 1;
+      game.diseaseTurns += 1;
+      addLog(game.disease.name + " drains the caravan.");
+      if (game.diseaseTurns >= 4 && chance(0.2)) {
+        losePeople(1, 0, 0, "Disease claims part of the caravan");
+      }
+    }
+
+    function maybeIllness() {
+      let risk = 0.1;
+      if (game.difficulty === "hard") risk = 0.16;
+      if (game.food <= 1 || game.water <= 1) risk += 0.08;
+      if (game.scouted) risk -= 0.03;
+      if (chance(risk)) {
+        contractDisease("Illness in camp");
+        showEventImage(null);
+      }
+    }
+
+    function arriveAtSettlement(stop) {
+      game.inSettlement = true;
+      game.currentSettlement = stop.name;
+      if (!game.visitedSettlements.includes(stop.name)) {
+        game.visitedSettlements.push(stop.name);
+        addScore(15, "new settlement reached");
+      }
+      game.sleptInSettlement = false;
+      const info = settlementData[stop.name];
+      setEvent("You arrive at <strong>" + stop.name + "</strong>. " + (info ? info.intro : "You can trade and recover here.") + " You may camp once before leaving.");
+      showEventImage(null);
+      clearChoices();
+      addLog("The caravan reaches " + stop.name + ".");
+    }
+
+    function getNextRequiredStop() {
+      return routeStops[Math.min(game.stopIndex + 1, routeStops.length - 1)];
+    }
+
+    function moveAlongTrail(baseDistance) {
+      const nextStop = getNextRequiredStop();
+      if (!nextStop) return;
+      const target = game.distance + baseDistance;
+      if (target >= nextStop.dist) game.distance = nextStop.dist;
+      else game.distance = target;
+      updateLocationState();
+      if (game.inSettlement) arriveAtSettlement(routeStops[game.stopIndex]);
+      else game.sleptInSettlement = false;
+    }
+
+    function maybeTriggerRandomEvent() {
+      if (game.lastEventDay === game.day || activeEvent || game.over) return false;
+      let eventChance = 0.42;
+      if (game.scouted) eventChance -= 0.12;
+      if (game.difficulty === "hard") eventChance += 0.08;
+      if (!chance(eventChance)) return false;
+
+      if (!game.crossedComoe && game.distance >= 40 && game.distance < 170) {
+        triggerEvent("riverComoe");
+      } else if (!game.crossedBandama && game.distance >= 740 && game.distance < 850) {
+        triggerEvent("riverBandama");
+      } else {
+        const pool = ["tribe", "elephant", "spirit", "tradecaravan", "ceremony", "outbreak", "kola", "drummers", "yamfestival"];
+        triggerEvent(pool[rand(0, pool.length - 1)]);
+      }
+      game.lastEventDay = game.day;
+      game.eventsSeen += 1;
+      return true;
+    }
+
+    function triggerEvent(type) {
+      activeEvent = type;
+      clearChoices();
+      allowFieldTrade = false;
+
+      if (type === "tribe") {
+        setEvent("Your caravan meets another community on the road. They are wary, armed, and watching your every move.");
+        showEventImage("chiefs");
+        addChoice("Make Way", () => resolveEvent(type, "makeway"));
+        addChoice("Trade", () => resolveEvent(type, "trade"));
+        addChoice("Peace Treaty", () => resolveEvent(type, "peace"));
+      } else if (type === "elephant") {
+        setEvent("An elephant herd blocks the trail ahead. The animals are huge, restless, and close.");
+        showEventImage("elephant");
+        addChoice("Wait Quietly", () => resolveEvent(type, "wait"));
+        addChoice("Detour", () => resolveEvent(type, "detour"));
+        addChoice("Drive Them Off", () => resolveEvent(type, "scare"));
+      } else if (type === "spirit") {
+        setEvent("Panic spreads through the caravan: some believe an evil spirit follows the group through the forest.");
+        showEventImage("ceremony");
+        addChoice("Make an Offering", () => resolveEvent(type, "offer"));
+        addChoice("Ignore the Fear", () => resolveEvent(type, "ignore"));
+        addChoice("Seek a Diviner", () => resolveEvent(type, "diviner"));
+      } else if (type === "tradecaravan") {
+        setEvent("A traveling merchant caravan appears on the road. They display cloth, beads, medicine, and food.");
+        showEventImage("trade");
+        addChoice("Buy Supplies", () => resolveEvent(type, "buy"));
+        addChoice("Trade Cloth for Food", () => resolveEvent(type, "barter"));
+        addChoice("Move On", () => resolveEvent(type, "leave"));
+      } else if (type === "ceremony") {
+        setEvent("The elders ask for a ceremony of song, cloth, and remembrance to strengthen the people.");
+        showEventImage("ceremony");
+        addChoice("Hold the Ceremony", () => resolveEvent(type, "hold"));
+        addChoice("Save Resources", () => resolveEvent(type, "save"));
+      } else if (type === "riverComoe") {
+        setEvent("The waters of the Comoé stand in your way. The current is uncertain.");
+        addChoice("Attempt the Crossing", () => resolveEvent(type, "cross"));
+        addChoice("Scout for a Better Ford", () => resolveEvent(type, "scout"));
+        addChoice("Wait a Day", () => resolveEvent(type, "wait"));
+      } else if (type === "riverBandama") {
+        setEvent("The Bandama crossing is dangerous. The caravan must choose carefully.");
+        addChoice("Attempt the Crossing", () => resolveEvent(type, "cross"));
+        addChoice("Scout for a Better Ford", () => resolveEvent(type, "scout"));
+        addChoice("Hold a Rite Before Crossing", () => resolveEvent(type, "rite"));
+      } else if (type === "outbreak") {
+        setEvent("Several children begin coughing and shaking with fever. The camp fears an outbreak.");
+        addChoice("Use Medicine", () => resolveEvent(type, "medicine"));
+        addChoice("Isolate the Sick", () => resolveEvent(type, "isolate"));
+        addChoice("Do Nothing", () => resolveEvent(type, "ignore"));
+      } else if (type === "kola") {
+        setEvent("You find a kola grove watched by local keepers. Respect may earn a blessing, greed may earn a curse.");
+        addChoice("Offer Cowries", () => resolveEvent(type, "respect"));
+        addChoice("Gather in Secret", () => resolveEvent(type, "steal"));
+        addChoice("Leave It Alone", () => resolveEvent(type, "leave"));
+      } else if (type === "drummers") {
+        setEvent("Night drummers invite your caravan to a fireside dance. Joining may lift spirits but cost supplies and time.");
+        showEventImage("ceremony");
+        addChoice("Join the Dance", () => resolveEvent(type, "join"));
+        addChoice("Keep Marching", () => resolveEvent(type, "march"));
+      } else if (type === "yamfestival") {
+        setEvent("A nearby village shares word of a yam celebration. Courtesy could bring food and goodwill.");
+        addChoice("Send Gifts", () => resolveEvent(type, "gift"));
+        addChoice("Attend Humbly", () => resolveEvent(type, "attend"));
+        addChoice("Pass By", () => resolveEvent(type, "pass"));
+      }
+      updateActionAvailability();
+    }
+
+    function resolveEvent(type, choice) {
+      clearChoices();
+      if (type === "tribe") {
+        if (choice === "makeway") {
+          game.distance = Math.max(0, game.distance - 10);
+          game.morale -= 1;
+          addScore(-2, "avoided road conflict");
+          setEvent("You keep your distance and give the road away. No blood is spilled, but time is lost.");
+          addLog("You avoid conflict and lose time.");
+        } else if (choice === "trade") {
+          if (game.cloth > 0) {
+            game.cloth -= 1;
+            game.food += 3;
+            game.cowries += 1;
+            game.morale += 1;
+            addScore(8, "successful roadside trade");
+            setEvent("Trade succeeds. Cloth and courtesy earn food and goodwill.");
+            addLog("Trade with another community succeeds.");
+          } else {
+            game.cowries -= 1;
+            game.morale -= 1;
+            addScore(-4, "poor roadside trade");
+            setEvent("Without much to offer, trade is poor and costly.");
+            addLog("Trade with another community goes badly.");
+          }
+        } else if (choice === "peace") {
+          let success = 0.55 + (game.scouted ? 0.1 : 0) + (game.cloth > 0 ? 0.1 : 0);
+          if (chance(success)) {
+            game.morale += 2;
+            game.distance += 10;
+            addScore(10, "peaceful diplomacy");
+            setEvent("A peace agreement is reached, and the road ahead becomes safer.");
+            addLog("Diplomacy creates a peaceful passage.");
+          } else if (chance(0.2)) {
+            losePeople(1, 0, 1, "Failed talks erupt into violence");
+            markDeath("Talks collapse into violence and the caravan is overwhelmed.", "violence");
+            return;
+          } else {
+            game.health -= 2;
+            game.morale -= 2;
+            addScore(-8, "failed diplomacy");
+            setEvent("Talks fail and tension rises before both groups pull away.");
+            addLog("Peace talks fail.");
+          }
+        }
+      } else if (type === "elephant") {
+        if (choice === "wait") {
+          game.day += 1;
+          useSupplies(2, 2);
+          game.morale -= 1;
+          applyDiseaseTick();
+          addScore(2, "patient elephant avoidance");
+          setEvent("You wait in silence until the herd moves away.");
+          addLog("You patiently wait out the herd.");
+        } else if (choice === "detour") {
+          game.distance = Math.max(0, game.distance - 15);
+          game.water -= 1;
+          addScore(-3, "elephant detour");
+          setEvent("You circle around the herd through rough ground and lose progress.");
+          addLog("You detour around the herd.");
+        } else if (choice === "scare") {
+          if (chance(0.18)) {
+            game.distance += 10;
+            game.morale += 1;
+            addScore(12, "bold elephant bluff");
+            setEvent("Against the odds, the herd backs off and the trail opens.");
+            addLog("You drive off the herd.");
+          } else if (chance(0.45)) {
+            losePeople(2, 1, 1, "The herd stampedes through the caravan");
+            markDeath("A reckless attempt to scare away the elephants causes a stampede that runs through the caravan.", "stampede");
+            return;
+          } else {
+            game.health -= 3;
+            game.food -= 1;
+            game.morale -= 2;
+            addScore(-12, "elephant panic");
+            setEvent("The herd panics. The caravan is scattered and hurt.");
+            addLog("Trying to drive off the herd goes badly.");
+          }
+        }
+      } else if (type === "spirit") {
+        if (choice === "offer") {
+          if (game.food >= 1 || game.cloth >= 1) {
+            if (game.food >= 1) game.food -= 1;
+            else game.cloth -= 1;
+            game.morale += 2;
+            addScore(6, "respectful offering");
+            setEvent("The offering calms the people. Fear loosens its hold.");
+            addLog("An offering restores morale.");
+          } else {
+            game.morale -= 2;
+            addScore(-5, "failed offering");
+            setEvent("You have little to offer, and fear deepens.");
+            addLog("The caravan feels abandoned by the spirits.");
+          }
+        } else if (choice === "ignore") {
+          game.morale -= 3;
+          addScore(-7, "ignored spiritual fear");
+          setEvent("Dismissal deepens panic. Whispers continue through the night.");
+          addLog("Ignoring spiritual fear hurts morale.");
+        } else if (choice === "diviner") {
+          if (game.cowries >= 2) {
+            game.cowries -= 2;
+            game.morale += 2;
+            game.health += 1;
+            if (chance(0.08)) {
+              contractDisease("A tainted divination ritual", { name: "Spirit Sickness", damage: 2 });
+            } else {
+              addScore(7, "diviner steadies caravan");
+              setEvent("A diviner is consulted, and confidence returns to camp.");
+              addLog("A diviner steadies the caravan.");
+            }
+          } else {
+            game.morale -= 1;
+            addScore(-3, "could not afford diviner");
+            setEvent("You cannot secure a diviner, and the camp remains uneasy.");
+            addLog("No diviner can be found.");
+          }
+        }
+      } else if (type === "tradecaravan") {
+        if (choice === "buy") {
+          if (game.cowries >= 3) {
+            game.cowries -= 3;
+            game.food += 3;
+            game.water += 2;
+            game.medicine += 1;
+            addScore(6, "merchant caravan trade");
+            setEvent("You purchase supplies from the caravan.");
+            addLog("The caravan resupplies your people.");
+          } else {
+            game.morale -= 1;
+            addScore(-2, "could not afford merchant goods");
+            setEvent("You want to buy, but your cowries are too few.");
+            addLog("The caravan offers goods you cannot afford.");
+          }
+        } else if (choice === "barter") {
+          if (game.cloth >= 1) {
+            game.cloth -= 1;
+            game.food += 4;
+            game.morale += 1;
+            addScore(5, "cloth barter");
+            setEvent("Your cloth is admired and exchanged for food.");
+            addLog("Cloth is bartered successfully.");
+          } else {
+            setEvent("You have no cloth to barter.");
+            addLog("You have nothing fine enough to barter.");
+          }
+        } else {
+          setEvent("You move on without trading.");
+          addLog("You leave the caravan behind.");
+        }
+      } else if (type === "ceremony") {
+        if (choice === "hold") {
+          if (game.cloth >= 1) {
+            game.cloth -= 1;
+            game.morale += 3;
+            addScore(8, "ceremony held");
+            setEvent("The ceremony brings unity, memory, and strength back to the people.");
+            addLog("A ceremony restores the group.");
+          } else {
+            game.morale += 1;
+            addScore(3, "simple ceremony");
+            setEvent("Even with little cloth, song and remembrance still strengthen the camp.");
+            addLog("A simple ceremony lifts morale.");
+          }
+        } else {
+          game.morale -= 2;
+          addScore(-4, "ceremony postponed");
+          setEvent("You save resources, but the people feel the loss of ritual and shared memory.");
+          addLog("The ceremony is postponed.");
+        }
+      } else if (type === "riverComoe" || type === "riverBandama") {
+        const riverName = type === "riverComoe" ? "Comoé" : "Bandama";
+        let success = (type === "riverComoe" ? 0.55 : 0.5) + (game.scouted ? 0.2 : 0);
+        if (game.difficulty === "hard") success -= 0.08;
+        if (choice === "cross") {
+          if (chance(success)) {
+            if (type === "riverComoe") game.crossedComoe = true;
+            else game.crossedBandama = true;
+            game.distance += (type === "riverComoe" ? 35 : 40);
+            game.morale += 1;
+            addScore(12, riverName + " crossing");
+            setEvent("The " + riverName + " is crossed. The caravan cheers from the far bank.");
+            addLog("The " + riverName + " crossing succeeds.");
+          } else if (chance(0.22)) {
+            losePeople(2, 1, 1, "The river takes the weak and unwary");
+            markDeath("The crossing fails and the river takes the caravan before it can reach safety.", "drowned");
+            return;
+          } else {
+            game.food -= 2;
+            game.water -= 2;
+            game.health -= 3;
+            addScore(-10, riverName + " crossing cost");
+            setEvent("The crossing is rough and costly, though the caravan survives.");
+            addLog("The " + riverName + " crossing goes badly.");
+          }
+        } else if (choice === "scout") {
+          game.scouted = true;
+          game.day += 1;
+          useSupplies(1, 1);
+          applyDiseaseTick();
+          setEvent("Scouts search ahead and mark a safer line through the river.");
+          addLog("The " + riverName + " is carefully scouted.");
+        } else if (choice === "wait") {
+          game.day += 1;
+          useSupplies(1, 1);
+          game.morale -= 1;
+          applyDiseaseTick();
+          setEvent("You wait for calmer water, but patience is expensive.");
+          addLog("The caravan waits at the " + riverName + ".");
+        } else if (choice === "rite") {
+          if (game.cloth > 0) {
+            game.cloth -= 1;
+            if (type === "riverBandama") game.crossedBandama = true;
+            game.distance += 25;
+            game.morale += 2;
+            addScore(8, "crossing rite");
+            setEvent("A rite of courage steadies the people before crossing.");
+            addLog("A crossing rite strengthens the caravan.");
+          } else {
+            game.morale -= 1;
+            addScore(-2, "failed rite");
+            setEvent("Without cloth or offerings, the rite feels incomplete.");
+            addLog("The crossing rite falters.");
+          }
+        }
+      } else if (type === "outbreak") {
+        if (choice === "medicine") {
+          if (game.medicine > 0) {
+            game.medicine -= 1;
+            game.health += 1;
+            if (chance(0.7)) {
+              game.disease = null;
+              game.diseaseTurns = 0;
+              game.morale += 1;
+              addScore(10, "outbreak treated");
+              setEvent("You act quickly and stop the sickness from spreading.");
+              addLog("An outbreak is treated in time.");
+            } else {
+              contractDisease("A poorly treated outbreak");
+            }
+          } else {
+            contractDisease("An untreated outbreak");
+          }
+        } else if (choice === "isolate") {
+          if (chance(0.55)) {
+            game.morale -= 1;
+            addScore(5, "outbreak isolated");
+            setEvent("You isolate the sick and keep the rest of the caravan moving.");
+            addLog("The outbreak is contained.");
+          } else {
+            contractDisease("The isolation fails");
+          }
+        } else {
+          contractDisease("Ignoring the outbreak");
+        }
+      } else if (type === "kola") {
+        if (choice === "respect") {
+          if (game.cowries >= 1) {
+            game.cowries -= 1;
+            game.food += 2;
+            game.morale += 2;
+            addScore(7, "kola grove respected");
+            setEvent("The keepers welcome your respect and share food.");
+            addLog("Courtesy at the kola grove pays off.");
+          } else {
+            game.morale -= 1;
+            setEvent("You cannot afford a proper offering.");
+          }
+        } else if (choice === "steal") {
+          if (chance(0.45)) {
+            game.food += 2;
+            game.morale -= 1;
+            addScore(-2, "stole from grove");
+            setEvent("You escape with food, but the people whisper about the shame.");
+          } else {
+            game.health -= 2;
+            game.morale -= 3;
+            addScore(-10, "caught stealing from grove");
+            setEvent("The keepers chase you off and the caravan loses face.");
+          }
+        } else {
+          game.morale += 1;
+          addScore(2, "left sacred grove alone");
+          setEvent("You leave the grove untouched and the people feel calmer.");
+        }
+      } else if (type === "drummers") {
+        if (choice === "join") {
+          game.food -= 1;
+          game.morale += 3;
+          addScore(7, "joined drummers");
+          setEvent("Song and rhythm lift the hearts of the caravan.");
+          addLog("The caravan dances by the fire.");
+        } else {
+          game.morale -= 1;
+          addScore(-2, "ignored drummers");
+          setEvent("You march on. The road is quieter, but the people feel the loss.");
+          addLog("The caravan passes up the dance.");
+        }
+      } else if (type === "yamfestival") {
+        if (choice === "gift") {
+          if (game.cloth >= 1) {
+            game.cloth -= 1;
+            game.food += 4;
+            game.morale += 2;
+            addScore(9, "gift at yam festival");
+            setEvent("Your gift is honored and the village shares yams and goodwill.");
+            addLog("The yam celebration fills your stores.");
+          } else {
+            setEvent("You have no proper gift to offer.");
+          }
+        } else if (choice === "attend") {
+          game.food += 2;
+          game.morale += 1;
+          addScore(5, "attended yam festival");
+          setEvent("You attend humbly and leave with shared food and stories.");
+        } else {
+          game.morale -= 1;
+          addScore(-1, "passed village festival");
+          setEvent("You pass by the celebration and keep to the road.");
+        }
+      }
+
+      activeEvent = null;
+      showEventImage(null);
+      clampStats();
+      updateLocationState();
+      updateUI();
+      checkGameState();
+    }
+
+    function doForage() {
+      game.day += 1;
+      game.consecutiveForage += 1;
+      if (game.consecutiveForage === 1) game.forageRecovery = 0;
+      useSupplies(1, 1);
+      applyDiseaseTick();
+      let penalty = Math.max(0, game.consecutiveForage - 1);
+      let foodGain = Math.max(1, rand(2, 4) - penalty);
+      let waterGain = Math.max(0, rand(1, 3) - penalty);
+      game.food += foodGain;
+      game.water += waterGain;
+      if (game.consecutiveForage >= 4 && chance(0.2)) {
+        game.health -= 1;
+        game.morale -= 1;
+        addScore(-2, "forage exhaustion");
+        setStory("Gatherers return with some supplies, but the nearby land is becoming stripped bare.");
+        addLog("Foraging works, but the land is giving less each day.");
+      } else {
+        game.morale += 1;
+        addScore(3, "successful forage");
+        setStory("Gatherers return with roots, fruit, and water.");
+        addLog("Foraging succeeds.");
+      }
+    }
+
+    function recoverForage() {
+      if (game.lastAction !== "forage") {
+        game.forageRecovery += 1;
+        if (game.forageRecovery >= 3) {
+          game.consecutiveForage = 0;
+          game.forageRecovery = 0;
+        }
+      }
+    }
+
+    function openTradeMenu() {
+      activeEvent = "tradeMenu";
+      clearChoices();
+      const place = settlementData[game.currentSettlement] || { prices: { food: 2, water: 2, medicine: 4, cloth: 3 } };
+      setEvent(
+        "Choose what to buy in <strong>" + game.currentSettlement + "</strong>.<br>" +
+        "Food: " + place.prices.food + " cowries | Water: " + place.prices.water + " cowries | Medicine: " + place.prices.medicine + " cowries | Cloth: " + place.prices.cloth + " cowries"
+      );
+      addChoice("Buy Food", () => buySettlementItem("food"));
+      addChoice("Buy Water", () => buySettlementItem("water"));
+      addChoice("Buy Medicine", () => buySettlementItem("medicine"));
+      addChoice("Buy Cloth", () => buySettlementItem("cloth"));
+      addChoice("Cancel", closeTradeMenu);
+      updateActionAvailability();
+    }
+
+    function closeTradeMenu() {
+      activeEvent = null;
+      clearChoices();
+      setEvent(game.inSettlement ? ("You are in <strong>" + game.currentSettlement + "</strong>.") : "You are on the trail.");
+      updateActionAvailability();
+    }
+
+    function buySettlementItem(item) {
+      const place = settlementData[game.currentSettlement] || { prices: { food: 2, water: 2, medicine: 4, cloth: 3 } };
+      const price = place.prices[item];
+      if (game.cowries < price) {
+        setEvent("You do not have enough cowries for " + item + ".");
+        game.morale -= 1;
+        addScore(-2, "failed purchase");
+        return;
+      }
+      game.cowries -= price;
+      if (item === "food") game.food += 3;
+      if (item === "water") game.water += 3;
+      if (item === "medicine") game.medicine += 1;
+      if (item === "cloth") game.cloth += 1;
+      if (item === "water") addScore(4, "bought water in settlement");
+      else addScore(3, "bought " + item + " in settlement");
+      setEvent("Trade succeeds in <strong>" + game.currentSettlement + "</strong>. You buy " + item + ".");
+      showEventImage("trade");
+      addLog("You buy " + item + " in " + game.currentSettlement + ".");
+      activeEvent = null;
+      clearChoices();
+      clampStats();
+      updateUI();
+    }
+
+    function useMedicineAction() {
+      if (game.medicine <= 0) {
+        setEvent("You have no medicine to use.");
+        return;
+      }
+      game.medicine -= 1;
+      game.health += 2;
+      let cured = false;
+      if (game.disease && chance(0.55)) {
+        cured = true;
+        addLog(game.disease.name + " is cured.");
+        game.disease = null;
+        game.diseaseTurns = 0;
+        game.morale += 1;
+        addScore(10, "disease cured");
+      }
+      setEvent(cured ? "The medicine restores strength and cures the sickness." : "The medicine restores some strength, but the sickness may remain.");
+      addLog("Medicine is used.");
+    }
+
+    function takeAction(action) {
+      if (game.over || activeEvent) return;
+      if (emergencyNeeds(action)) return;
+
+      allowFieldTrade = false;
+      clearChoices();
+      showEventImage(null);
+      recoverForage();
+      game.lastAction = action;
+
+      if (action !== "forage") {
+        // leave the current settlement when moving away later; just reset forage chain recovery here
+      }
+
+      if (action === "travel") {
+        game.day += 1;
+        useSupplies(2, 3);
+        moveAlongTrail(rand(65, 90));
+        game.scouted = false;
+        game.morale += 1;
+        addScore(4, "careful travel");
+        setStory("The caravan advances carefully, guarding its children, elders, and supplies.");
+        addLog("You travel carefully.");
+        applyDiseaseTick();
+      } else if (action === "push") {
+        game.day += 1;
+        useSupplies(3, 4);
+        moveAlongTrail(rand(100, 135));
+        game.health -= 2;
+        game.morale -= 2;
+        game.scouted = false;
+        addScore(-5, "forced march");
+        if (chance(0.14)) {
+          losePeople(1, 0, 1, "The forced pace shatters the line");
+          markDeath("You push the caravan so hard that the line collapses in exhaustion and confusion.", "overwork");
+          return;
+        }
+        setStory("You force the pace. The miles come faster, but the caravan feels the strain.");
+        addLog("You push forward aggressively.");
+        applyDiseaseTick();
+      } else if (action === "camp") {
+        if (!game.inSettlement) {
+          setEvent("You are on the trail. You cannot rest here.");
+          return;
+        }
+        if (game.sleptInSettlement) {
+          setEvent("You already rested here once. You need to move on.");
+          return;
+        }
+        game.day += 1;
+        game.health += 3;
+        game.morale += 1;
+        game.sleptInSettlement = true;
+        addScore(8, "safe settlement rest");
+        setStory("In " + game.currentSettlement + ", the caravan sleeps under relative safety.");
+        setEvent("You make camp in " + game.currentSettlement + " and recover. It costs no food or water, but you may only do this once before leaving.");
+        addLog("You camp safely in " + game.currentSettlement + ".");
+        applyDiseaseTick();
+      } else if (action === "forage") {
+        doForage();
+      } else if (action === "trade") {
+        if (!game.inSettlement) {
+          setEvent("You are on the trail. You cannot trade here.");
+          return;
+        }
+        openTradeMenu();
+        return;
+      } else if (action === "scout") {
+        game.day += 1;
+        useSupplies(1, 2);
+        game.scouted = true;
+        game.morale += 1;
+        addScore(4, "scouting");
+        if (chance(0.12)) {
+          game.health -= 2;
+          setEvent("Your scouts return late and injured after finding danger ahead.");
+          addLog("Scouting reveals danger but costs blood.");
+        } else {
+          setStory("Scouts move ahead to study trails, camps, and riverbanks.");
+          setEvent("Your scouts return with useful knowledge. Negative events are less likely and less severe for a while.");
+          addLog("You scout ahead.");
+        }
+        applyDiseaseTick();
+      } else if (action === "medicine") {
+        useMedicineAction();
+      }
+
+      maybeIllness();
+      clampStats();
+      updateLocationState();
+      updateUI();
+      if (!game.over && !activeEvent) maybeTriggerRandomEvent();
+      checkGameState();
+    }
+
+    function computeFinalScore() {
+      let total = game.score;
+      total += game.health * 12;
+      total += game.morale * 10;
+      total += game.food + game.water + (game.medicine * 3) + (game.cloth * 2);
+      total += (game.families + game.elders + game.warriors) * 4;
+      total += game.visitedSettlements.length * 20;
+      total -= game.healthLost * 5;
+      if (game.disease) total -= 15;
+      return Math.max(0, Math.round(total));
+    }
+
+    function checkGameState() {
+      clampStats();
+      updateUI();
+      if (game.families <= 0 || game.elders <= 0 || game.warriors <= 0) {
+        endGame("collapse");
+        return;
+      }
+      if (game.food <= 0 && game.water <= 0 && (game.health <= 2 || game.morale <= 2)) {
+        endGame("starvedOut");
+        return;
+      }
+      if (game.health <= 0) {
+        endGame("collapse");
+        return;
+      }
+      if (game.morale <= 0) {
+        endGame("scatter");
+        return;
+      }
+      if (game.distance >= 1000 && game.stopIndex >= routeStops.length - 1) {
+        if (game.health >= 7 && game.morale >= 7) endGame("strong");
+        else if (game.health >= 4 && game.morale >= 4) endGame("survive");
+        else endGame("worn");
+      }
+    }
+
+    function endingWithImage(titleClass, title, body, imageKey = null) {
+      const info = imageKey ? IMAGES[imageKey] : null;
+      const score = computeFinalScore();
+      return (
+        "<div class='ending'>" +
+        "<span class='" + titleClass + "'>" + title + "</span><br><br>" +
+        body +
+        "<br><br><strong>Final Score:</strong> " + score +
+        "<br><strong>Health Lost:</strong> " + game.healthLost +
+        "<br><strong>Settlements Reached:</strong> " + game.visitedSettlements.length +
+        "<br><strong>Events Faced:</strong> " + game.eventsSeen +
+        "<br><strong>Survivors:</strong> " + (game.families + game.elders + game.warriors) +
+        (info ? "<div class='event-image-wrap' style='display:block; margin-top:14px;'><img src='" + info.src + "' alt='" + info.alt + "'><div class='caption'>" + info.caption + "</div></div>" : "") +
+        "<div class='button-row' style='margin-top:12px;'><button onclick='restartGame()'>Restart Journey</button></div>" +
+        "</div>"
+      );
+    }
+
+    function resetActionsBox() {
+      const actionsBox = document.getElementById("actionsBox");
+      actionsBox.innerHTML = `
+        <h3>Actions</h3>
+        <div class="actions">
+          <button id="travelBtn" onclick="takeAction('travel')">Travel Carefully</button>
+          <button id="pushBtn" onclick="takeAction('push')">Push Forward</button>
+          <button id="campBtn" onclick="takeAction('camp')">Camp in Settlement</button>
+          <button id="forageBtn" onclick="takeAction('forage')">Forage / Gather</button>
+          <button id="tradeBtn" onclick="takeAction('trade')">Trade</button>
+          <button id="scoutBtn" onclick="takeAction('scout')">Scout Ahead</button>
+          <button id="medicineBtn" onclick="takeAction('medicine')">Use Medicine</button>
+        </div>`;
+    }
+
+    function endGame(type) {
+      if (game.over && !["strong", "survive", "worn"].includes(type)) return;
+      game.over = true;
+      activeEvent = null;
+      clearChoices();
+      const actionsBox = document.getElementById("actionsBox");
+      let html = "";
+      if (type === "strong") {
+        html = endingWithImage("good", "Ending: A Strong Settlement", "Your people reach Bouaké with strength, memory, and unity. The road was hard, but your leadership leaves the caravan ready to build a future.", "victory");
+      } else if (type === "survive") {
+        html = endingWithImage("good", "Ending: Survival", "The journey is completed. The caravan arrives exhausted but intact enough to begin again.", "victory");
+      } else if (type === "worn") {
+        html = endingWithImage("bad", "Ending: Arrival in Hardship", "You reach the destination, but the caravan is badly weakened. The future is uncertain, though not lost.", "victory");
+      } else if (type === "collapse") {
+        html = endingWithImage("bad", "Ending: Collapse on the Trail", game.deathCause || "Illness, hunger, thirst, and exhaustion overpower the caravan before it can settle safely.");
+      } else if (type === "scatter") {
+        html = endingWithImage("bad", "Ending: The People Scatter", "Fear and grief break the caravan's unity. The migration cannot continue as one people.");
+      } else if (type === "stampede") {
+        html = endingWithImage("bad", "Ending: Crushed by the Herd", game.deathCause || "A reckless attempt to scare away the elephants causes a stampede that runs through the caravan.");
+      } else if (type === "drowned") {
+        html = endingWithImage("bad", "Ending: Lost in the River", game.deathCause || "The crossing fails and the river takes the caravan before it can reach safety.");
+      } else if (type === "plague") {
+        html = endingWithImage("bad", "Ending: Fever Camp", game.deathCause || "Disease spreads faster than your supplies can answer, and the migration ends in sickness.");
+      } else if (type === "violence") {
+        html = endingWithImage("bad", "Ending: Broken by Violence", game.deathCause || "Road diplomacy fails and the caravan is destroyed in conflict.");
+      } else if (type === "overwork") {
+        html = endingWithImage("bad", "Ending: Death by Exhaustion", game.deathCause || "The forced march destroys the caravan.");
+      } else if (type === "starvedOut") {
+        html = endingWithImage("bad", "Ending: Hunger and Thirst", game.deathCause || "With food and water gone, the caravan cannot continue.");
+      }
+      actionsBox.innerHTML = html;
+      setEvent("The journey has ended.");
+      showEventImage(null);
+      addLog("The journey ends.");
+      updateActionAvailability();
+    }
+
+    function restartGame() {
+      game = freshGame();
+      activeEvent = null;
+      allowFieldTrade = false;
+      document.getElementById("startBox").classList.remove("hidden");
+      document.getElementById("gameBox").classList.add("hidden");
+      document.getElementById("log").innerHTML = "";
+      document.getElementById("eventChoices").innerHTML = "";
+      document.getElementById("eventText").innerHTML = "";
+      document.getElementById("storyBox").textContent = "";
+      showEventImage(null);
+      resetActionsBox();
+    }
+  </script>
+
+
+</body>
+</html>

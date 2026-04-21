@@ -1,0 +1,443 @@
+body {
+    background-color: #fff8e7;
+    font-family: Georgia, serif;
+    color: #2f2f2f;
+    margin: 0;
+    padding: 0;
+}
+
+#intro {
+    padding: 30px;
+    text-align: center;
+}
+
+#culture {
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+#media {
+    padding: 30px;
+    margin: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+h1 {
+    color: #8d0801;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+h2 {
+    color: #1d3557;
+    font-family: Arial, sans-serif;
+}
+
+h3 {
+    color: #1d3557;
+    font-family: Arial, sans-serif;
+    margin-bottom: 12px;
+}
+
+p {
+    color: #333333;
+    line-height: 1.6;
+}
+
+a {
+    color: #005f73;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.page-links {
+    margin-top: 20px;
+}
+
+.page-links a {
+    display: inline-block;
+    margin: 8px 12px;
+}
+
+.media-item {
+    margin-top: 30px;
+}
+
+img {
+    width: 400px;
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+iframe {
+    width: 560px;
+    max-width: 100%;
+    height: 315px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.tableauPlaceholder {
+    max-width: 100%;
+    margin: 20px auto 10px;
+}
+
+.back-link {
+    margin-top: 30px;
+}
+
+body.resume-page {
+    margin: 0;
+    background:
+        radial-gradient(circle at top left, rgba(244, 213, 141, 0.35), transparent 30%),
+        linear-gradient(180deg, #f4efe6 0%, #ece5d7 100%);
+    color: #2d241e;
+    font-family: Georgia, serif;
+}
+
+.resume-page .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(249, 246, 239, 0.96);
+    border-bottom: 1px solid rgba(92, 5, 1, 0.12);
+    backdrop-filter: blur(12px);
+}
+
+.resume-page .site-header-inner,
+.resume-page .site-footer-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 18px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+}
+
+.resume-page .site-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.resume-page .brand-kicker {
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #8d0801;
+    font-family: Arial, sans-serif;
+}
+
+.resume-page .brand-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #2d241e;
+}
+
+.resume-page .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.resume-page .nav-link {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(92, 5, 1, 0.12);
+    background: #fffdf8;
+    color: #5c0501;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+}
+
+.resume-page .nav-link.is-active {
+    background: #8d0801;
+    border-color: #8d0801;
+    color: #fff;
+}
+
+.resume-page .main-content {
+    padding: 42px 20px 56px;
+}
+
+.resume-page .page {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.resume-page .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 360px);
+    gap: 28px;
+    align-items: stretch;
+    padding: 34px;
+    margin-bottom: 28px;
+    background: linear-gradient(135deg, #fffdf7 0%, #f8f1e5 100%);
+    border: 1px solid rgba(92, 5, 1, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 16px 38px rgba(55, 40, 25, 0.08);
+}
+
+.resume-page .eyebrow {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #8d0801;
+    font-size: 0.82rem;
+    font-family: Arial, sans-serif;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.resume-page .hero h1 {
+    margin: 0 0 8px;
+    color: #241914;
+    font-size: clamp(2.2rem, 4vw, 3.3rem);
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.resume-page .subtitle {
+    margin-bottom: 16px;
+    color: #5c0501;
+    font-size: 1.15rem;
+    font-family: Arial, sans-serif;
+}
+
+.resume-page .summary {
+    max-width: 62ch;
+    font-size: 1.04rem;
+}
+
+.resume-page .hero-list {
+    margin: 18px 0 22px;
+    padding-left: 22px;
+}
+
+.resume-page .hero-list li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.resume-page .contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.resume-page .contact-link {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid rgba(92, 5, 1, 0.12);
+    color: #5c0501;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 0.95rem;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.resume-page .image-card {
+    display: block;
+    padding: 18px;
+    background: #fff;
+    border: 1px solid rgba(92, 5, 1, 0.08);
+    border-radius: 20px;
+    color: #2d241e;
+    text-decoration: none;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+}
+
+.resume-page .image-card strong,
+.resume-page .image-card span {
+    display: block;
+}
+
+.resume-page .image-card strong {
+    margin-top: 12px;
+    margin-bottom: 4px;
+    color: #241914;
+}
+
+.resume-page .image-card span {
+    color: #65564d;
+    line-height: 1.5;
+}
+
+.resume-page .hero-photo,
+.resume-page .gallery-grid img {
+    width: 100%;
+    height: auto;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.resume-page .grid,
+.resume-page .gallery-grid,
+.resume-page .fun-grid {
+    display: grid;
+    gap: 22px;
+}
+
+.resume-page .grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.9fr);
+    margin-bottom: 28px;
+}
+
+.resume-page .stack {
+    display: grid;
+    gap: 22px;
+}
+
+.resume-page .section,
+.resume-page .gallery,
+.resume-page .fun-section {
+    padding: 28px;
+    background: rgba(255, 253, 248, 0.96);
+    border: 1px solid rgba(92, 5, 1, 0.08);
+    border-radius: 22px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+}
+
+.resume-page .section h2,
+.resume-page .gallery h2,
+.resume-page .fun-section h2 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #241914;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.resume-page .item {
+    padding: 18px 0;
+    border-top: 1px solid rgba(92, 5, 1, 0.1);
+}
+
+.resume-page .item:first-of-type {
+    padding-top: 0;
+    border-top: 0;
+}
+
+.resume-page .mini-title {
+    margin-bottom: 6px;
+    color: #8d0801;
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-family: Arial, sans-serif;
+}
+
+.resume-page .item-title {
+    margin-bottom: 6px;
+    font-size: 1.18rem;
+    font-weight: bold;
+    color: #241914;
+}
+
+.resume-page .item-meta {
+    margin-bottom: 10px;
+    color: #65564d;
+    font-family: Arial, sans-serif;
+}
+
+.resume-page .item ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.resume-page .item li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.resume-page .skills-list,
+.resume-page .stats-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.resume-page .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #f7eee2;
+    border: 1px solid rgba(92, 5, 1, 0.08);
+    color: #4b3b32;
+    line-height: 1.45;
+}
+
+.resume-page .gallery-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.resume-page .gallery-grid .image-card {
+    height: 100%;
+}
+
+.resume-page .gallery-grid img {
+    aspect-ratio: 4 / 3;
+}
+
+.resume-page .fun-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.resume-page .fun-card {
+    padding: 18px;
+    background: #fff;
+    border: 1px solid rgba(92, 5, 1, 0.08);
+    border-radius: 18px;
+}
+
+.resume-page .fun-card p {
+    margin-bottom: 0;
+}
+
+.resume-page .back-top {
+    margin: 24px 0 0;
+    text-align: center;
+}
+
+.resume-page .site-footer {
+    border-top: 1px solid rgba(92, 5, 1, 0.08);
+    background: rgba(249, 246, 239, 0.96);
+}
+
+.resume-page .site-footer a {
+    color: #5c0501;
+    text-decoration: none;
+}
+
+@media (max-width: 980px) {
+    .resume-page .hero,
+    .resume-page .grid,
+    .resume-page .gallery-grid,
+    .resume-page .fun-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-page .site-header-inner,
+    .resume-page .site-footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resume-page .site-nav {
+        justify-content: flex-start;
+    }
+}
